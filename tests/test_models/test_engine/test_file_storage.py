@@ -32,7 +32,7 @@ class Test_FileStorage(unittest.TestCase):
         self.assertEqual(type(base[f"BaseModel.{str(b1.id)}"]), type(b1))
 
 
-     def test_allmethod_instance(self):
+    def test_allmethod_instance(self):
         """
         Tests for the all method of the file_storage.py
         Test type of the istance
@@ -74,7 +74,7 @@ class Test_FileStorage(unittest.TestCase):
         b3.save()
         self.assertEqual(len(models.storage.all()), 2)
 
-    def def test_reload_type(self):
+    def test_reload_type(self):
         """Test the reload method type"""
         d = models.storage.all().copy()
         for k, v in d.items():

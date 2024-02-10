@@ -2,9 +2,11 @@
 
 """Definition of a class Base"""
 
+
 from uuid import uuid4
 from datetime import datetime
 import models
+
 
 class BaseModel:
 
