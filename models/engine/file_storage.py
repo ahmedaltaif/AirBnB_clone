@@ -11,13 +11,17 @@ from models.state import State
 from models.review import Review
 from models.amenity import Amenity
 from models.base_model import BaseModel
-
+import datetime as time
 
 class FileStorage:
     """
     FileStorage class that serializes instances to a JSON file and deserializes
     JSON file to instances
     """
+
+    __file_path = 'file.json'
+    __objects = {}
+
     def all(self):
         """a function that return the dictionary object"""
 
@@ -28,8 +32,8 @@ class FileStorage:
         Args:
             obj: The object to set with key <obj class name>.id
         """
-        if ins:
-            FileStorage.__objects[f"{obj.__class__.__name__}.{obj.id}"] = ins
+        if obj:
+            FileStorage.__objects[f"{obj.__class__.__name__}.{obj.id}"] = obj
 
     def save(self):
         """function to serializes __objects to JSON file (path: __file_path)
