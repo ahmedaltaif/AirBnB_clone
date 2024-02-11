@@ -14,6 +14,7 @@ from models.amenity import Amenity
 from models.review import Review
 from models.state import State
 
+
 class HBNBCommand(cmd.Cmd):
     """
     Class for the command interpreters.
@@ -22,8 +23,8 @@ class HBNBCommand(cmd.Cmd):
         Cmd : built in class
     """
     prompt = '(hbnb) '
-    list_class = ["BaseModel", "User", "City",
-    "Amenity", "Place", "State", "Review"]
+    b = "BaseModel"
+    list_class = [b, "User", "City", "Amenity", "Place", "State", "Review"]
 
     list_func = ['create', 'show', 'update', 'all', 'destroy', 'count']
 
@@ -189,6 +190,7 @@ class HBNBCommand(cmd.Cmd):
             if v.__class__.__name__ == list_args[0]:
                 count += 1
         print(count)
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
