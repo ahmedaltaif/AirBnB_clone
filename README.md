@@ -12,7 +12,4 @@
 	We will start by implement the parent class called BaseModel, This class do the initialization, serialization and deserialization of the future instances : Instance <-> Dictionary <-> JSON string <-> file#*Create the console:
 	We will start by implement the parent class called BaseModel, This class do the initialization, 
 
-	#*Create the console:
-	We will start by implement the parent class called BaseModel, This class do the initialization, serialization and deserialization of the future instances : Instance <-> Dictionary <-> JSON string <-> file#*Create the console:
-	We will start by implement the parent class called BaseModel, This class do the initialization, serialization and deserialization of the future instances : Instance <-> Dictionary <-> JSON string <-> file#*Create the console:
-	We will start by implement the parent class called BaseModel, This class do the initialization, 
+	
