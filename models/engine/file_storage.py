@@ -54,27 +54,3 @@ class FileStorage:
             for keys, val in new_object_dict.items():
                 FileStorage.__objects[keys] = eval(val['__class__'])(**val)
 
-    def delete(self, obj):
-        """Deletes obj from __objects
-        """
-        try:
-            key = obj.__class__.__name__ + '.' + str(obj.id)
-            del self.__objects[key]
-            return True
-        except Exception:
-            return False
-
-    def calss_dict(self)
-        """to cottectly deserializes the JSON file  """
-
-        class_dict = {
-            "BaseModel": BaseModel,
-            "User": User,
-            "State": State,
-            "City": City,
-            "Amenity": Amenity,
-            "Place": Place,
-            "Review": Review
-            }
-        return class_dict
-

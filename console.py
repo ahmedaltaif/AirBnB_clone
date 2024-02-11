@@ -13,7 +13,6 @@ from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
 from models.state import State
-import shlex
 
 class HBNBCommand(cmd.Cmd):
     """
@@ -144,23 +143,6 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class doesn't exist **")
 
-    @classmethod
-    def class_verification(cls, args):
-        """Verifies class and checks if it is in the class list.
-
-        Returns:
-            bool: True or false depending on status of class.
-        """
-        if len(args) == 0:
-            print("** class name missing **")
-            return False
-
-        if args[0] not in cls.classes_list:
-            print("** class doesn't exist **")
-            return False
-
-        return True
-
     def do_update(self, arg):
         """a method to Updates an instance on the class name & id by adding
         or updating attribute"""
@@ -207,38 +189,6 @@ class HBNBCommand(cmd.Cmd):
             if v.__class__.__name__ == list_args[0]:
                 count += 1
         print(count)
-
-    @staticmethod
-    def attribute_verification(args):
-        """Verifies attributes.
-        """
-        if len(args) < 3:
-            print("** attribute name missing **")
-            return False
-        if len(args) < 4:
-            print("** value missing **")
-            return False
-        return True
-
-
-    @staticmethod
-    def id_verification(args):
-        """Verifies id of class.
-
-        Returns:
-            bool: True or False depending on status of id.
-        """
-        if len(args) < 2:
-            print("** instance id missing **")
-            return False
-
-        objects = models.storage.all()
-        string_key = str(args[0]) + '.' + str(args[1])
-        if string_key not in objects.keys():
-            print("** no instance found **")
-            return False
-
-        return True
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
