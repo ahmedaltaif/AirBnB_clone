@@ -13,6 +13,7 @@ from models.amenity import Amenity
 from models.base_model import BaseModel
 import datetime as time
 
+
 class FileStorage:
     """
     FileStorage class that serializes instances to a JSON file and deserializes

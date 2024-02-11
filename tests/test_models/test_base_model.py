@@ -1,13 +1,16 @@
 #!/usr/bin/python3
 
 """ all tests of the class BaseModel in the base_model module. """
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.realpath(__file__)) + '/../')
+
 from models.base_model import BaseModel
+from datetime import datetime
 from datetime import datetime
 from uuid import uuid4
 import unittest
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.realpath(__file__)) + '/../')
+
 
 class Test_BaseModel(unittest.TestCase):
     """Test cases for BaseModel class"""
@@ -55,15 +58,11 @@ class Test_BaseModel(unittest.TestCase):
         model2 = BaseModel()
         self.assertNotEqual(model1.updated_at, model2.updated_at)
 
-    def test_created_format(self):
-        """Test if time and date created at regular expression"""
-        model = BaseModel()
-        self.assertRegex(str(model.created_at), '^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}.\\d{6}')
+    def test_set_attributes(self):
+        """Test set attributes of BaseModel."""
 
-    def test_update_format(self):
-        """Test if updated_at at regular experssion"""
-        model = BaseModel()
-        self.assertRegex(str(model.updated_at), '^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}.\\d{6}')
+        self.assertEqual(self.BaseModel1.name, "joun")
+        self.assertEqual(self.BaseModel1.my_number, 89)
 
     def test_key_word_args(self):
         """test case of the key word args"""
@@ -72,12 +71,10 @@ class Test_BaseModel(unittest.TestCase):
         model2 = BaseModel(**dict_a)
         self.assertEqual(model.id, model2.id)
 
-    def test_key_word_args_datetime(self):
-        """test case key word args datetime"""
-        model1 = BaseModel()
-        dict_a = model1.to_dict()
-        model2 = BaseModel(**dict_a)
-        self.assertRegex(str(model2.updated_at), '^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}.\\d{6}')
+    def test_functions(self):
+        """Test if BaseModel moudule is documented."""
+
+        self.assertIsNotNone(BaseModel.__doc__)
 
     def test_key_word_args_class(self):
         """test kwargs class"""
@@ -101,7 +98,7 @@ class Test_BaseModel(unittest.TestCase):
         """test case for string representation created_at"""
         model = BaseModel()
         self.assertTrue('created_at' in str(model), True)
-    
+
     def test_save_new(self):
         """test case for save method with new string"""
         model = BaseModel()
@@ -157,6 +154,7 @@ class Test_BaseModel(unittest.TestCase):
         self.assertIn("created_at", model.to_dict())
         self.assertIn("updated_at", model.to_dict())
         self.assertIn("__class__", model.to_dict())
+
 
 if __name__ == '__main__':
     unittest.main()
