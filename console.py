@@ -302,7 +302,56 @@ if __name__ == '__main__':
     HBNBCommand().cmdloop()
 
 
-    ########################################################################################################
-########################################################################################################
-########################################################################################################
+   
+def default(self, line):
+        """default method"""
 
+        cls_ = line.split('.')
+        if cls_[0] not in HBNBCommand.clas_list:
+            print("** class doesn't exist **")
+            return
+        if cls_[1] == 'count()':
+            count = 0
+            for k, v in storage._FileStorage__objects.items():
+                clas_part = k.split('.')[0]
+                if clas_part == cls_[0]:
+                    count += 1
+            print(count)
+            return
+        if cls_[1].startswith('destroy'):
+            idd = cls_[1].split('"')[1]
+            ln = f"{cls_[0]} {idd}"
+            self.do_destroy(ln)
+            return
+        if cls_[1].startswith('update') and not cls_[1].endswith('})'):
+            idd = cls_[1].split('"')[1]
+            att = cls_[1].split('"')[3]
+            val = cls_[1].split('"')[5]
+            ln = f"{cls_[0]} {idd} {att} \"{val}\""
+            self.do_update(ln)
+            return
+        if cls_[1].startswith('show'):
+            idd = cls_[1].split('"')[1]
+            ln = f"{cls_[0]} {idd}"
+            self.do_show(ln)
+            return
+        if cls_[1] == 'all()':
+            all_objects = storage.all()
+            out_len = len(all_objects)
+            count = 0
+            print("[", end="")
+            for k, v in all_objects.items():
+                class_part = k.split('.')[0]
+                if class_part == cls_[0]:
+                    if count == 0:
+                        print(v, end="")
+                    else:
+                        print(", ", end="")
+                        print(v, end="")
+                    count += 1
+            print("]")
+            return
+
+
+if __name__ == '__main__':
+    HBNBCommand().cmdloop()
