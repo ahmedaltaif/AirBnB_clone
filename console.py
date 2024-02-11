@@ -22,7 +22,7 @@ class HBNBCommand(cmd.Cmd):
         Cmd : built in class
     """
     prompt = '(hbnb) '
-    list_classes = ["BaseModel", "User", "City",
+    list_class = ["BaseModel", "User", "City",
     "Amenity", "Place", "State", "Review"]
 
     list_func = ['create', 'show', 'update', 'all', 'destroy', 'count']
