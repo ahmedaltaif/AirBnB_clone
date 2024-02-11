@@ -24,20 +24,19 @@ class HBNBCommand(cmd.Cmd):
     """
     prompt = '(hbnb) '
     b = "BaseModel"
-    list_class = [b, "User", "City", "Amenity", "Place", "State", "Review"]
+    list_class =  [b, "User", "City", "Amenity", "Place", "State", "Review"]
 
     list_func = ['create', 'show', 'update', 'all', 'destroy', 'count']
 
-    def precmd(self, arg):
+    def precmd(self, line):
         """a method for parses command input"""
-        if '.' in arg and '(' in arg and ')' in arg:
-            classes = arg.split('.')
-            func = classes[1].split('(')
-            param = func[1].split(')')
-            if classes[0] in HBNBCommand.classes and \
-               func[0] in HBNBCommand.list_func:
-                arg = func[0] + ' ' + classes[0] + ' ' + param[0]
-        return arg
+
+        cls = line.split('.')
+        command = cls[1].split('(')
+        param = command[1].split(')')
+        if cls[0] in HBNBCommand.list_class and command[0] in HBNBCommand.list_func:
+            line = command[0] + ' ' + cls[0] + ' ' + param[0]
+        return line
 
     def do_quit(self, arg):
         """Quit command to exit the program"""
@@ -184,12 +183,61 @@ class HBNBCommand(cmd.Cmd):
         """a method to count the number of instances of a class"""
 
         count = 0
-        list_args = arg.split(" ")
-        all_obj = storage.all()
-        for v in all_obj.values():
-            if v.__class__.__name__ == list_args[0]:
+        all_objects = models.storage.all()
+        for key, value in all_objects.items():
+            keys_split = key.split('.')
+            if keys_split[0] == arg:
                 count += 1
         print(count)
+
+    def default(self, line):
+        """default method"""
+
+        cls_ = line.split('.')
+        if cls_[0] not in HBNBCommand.clas_list:
+            print("** class doesn't exist **")
+            return
+        if cls_[1] == 'count()':
+            count = 0
+            for k, v in storage._FileStorage__objects.items():
+                clas_part = k.split('.')[0]
+                if clas_part == cls_[0]:
+                    count += 1
+            print(count)
+            return
+        if cls_[1].startswith('destroy'):
+            idd = cls_[1].split('"')[1]
+            ln = f"{cls_[0]} {idd}"
+            self.do_destroy(ln)
+            return
+        if cls_[1].startswith('update') and not cls_[1].endswith('})'):
+            idd = cls_[1].split('"')[1]
+            att = cls_[1].split('"')[3]
+            val = cls_[1].split('"')[5]
+            ln = f"{cls_[0]} {idd} {att} \"{val}\""
+            self.do_update(ln)
+            return
+        if cls_[1].startswith('show'):
+            idd = cls_[1].split('"')[1]
+            ln = f"{cls_[0]} {idd}"
+            self.do_show(ln)
+            return
+        if cls_[1] == 'all()':
+            all_objects = storage.all()
+            out_len = len(all_objects)
+            count = 0
+            print("[", end="")
+            for k, v in all_objects.items():
+                class_part = k.split('.')[0]
+                if class_part == cls_[0]:
+                    if count == 0:
+                        print(v, end="")
+                    else:
+                        print(", ", end="")
+                        print(v, end="")
+                    count += 1
+            print("]")
+            return
 
 
 if __name__ == '__main__':
