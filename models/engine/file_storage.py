@@ -13,6 +13,7 @@ from models.amenity import Amenity
 from models.base_model import BaseModel
 import datetime as time
 
+
 class FileStorage:
     """
     FileStorage class that serializes instances to a JSON file and deserializes
@@ -53,4 +54,3 @@ class FileStorage:
                 new_object_dict = json.load(file)
             for keys, val in new_object_dict.items():
                 FileStorage.__objects[keys] = eval(val['__class__'])(**val)
-

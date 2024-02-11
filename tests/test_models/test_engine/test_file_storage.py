@@ -8,9 +8,10 @@ import unittest
 import models
 import os
 
+
 class Test_FileStorage(unittest.TestCase):
     """test case for attributes of the class FilesStorage"""
-    
+
     def test_attributes_assignement(self):
         self.assertIn("_FileStorage__objects", FileStorage.__dict__)
         self.assertIsInstance(FileStorage._FileStorage__objects, dict)
@@ -30,7 +31,6 @@ class Test_FileStorage(unittest.TestCase):
         b1.save()
         base = models.storage.all()
         self.assertEqual(type(base[f"BaseModel.{str(b1.id)}"]), type(b1))
-
 
     def test_allmethod_instance(self):
         """

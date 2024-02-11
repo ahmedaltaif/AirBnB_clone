@@ -8,7 +8,7 @@ import unittest
 class TestAmenity(unittest.TestCase):
     """testing the Amenity class"""
 
-def test_str(self):
+    def test_str(self):
         """Test case the string output of the class"""
         a = Amenity()
         self.assertEqual(str(a), f"[Amenity] ({a.id}) {a.__dict__}")
