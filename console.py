@@ -29,8 +29,7 @@ class HBNBCommand(cmd.Cmd):
     list_func = ['create', 'show', 'update', 'all', 'destroy', 'count']
 
     def precmd(self, arg):
-        """a method for parses command input"""
-
+        """parses command input"""
         if '.' in arg and '(' in arg and ')' in arg:
             my_class = arg.split('.')
             my_func = my_class[1].split('(')
@@ -244,4 +243,3 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
-
